@@ -55,9 +55,10 @@ Exceptions thrown by your callback propagate unchanged.
 
 ## Immutability
 
-`Throttle::for()` returns a **builder** — the only place configuration lives. `build()` freezes it
-into a `final readonly Throttle` that exposes only `run()` / `attempt()`. A live throttler's store
-and rate can never be reset, so it is safe to reuse and inject.
+`Throttle::for()` returns a **builder** — the only place the store and rate are set. `build()` freezes
+it into a `final readonly Throttle` that exposes `run()` / `attempt()` plus the wait-policy copies
+`withMaxWait()` / `withThrowOnLimit()` (which return a *new* instance) — but **no store or rate
+setters**. A live throttler's store and rate can never be reset, so it is safe to reuse and inject.
 
 ## Sharing a limiter across workers (the registry)
 
@@ -111,7 +112,7 @@ use ZeroxBliv\CallThrottle\Store\{RedisStore, FileStore, DatabaseStore};
 
 new RedisStore($redis);                 // \Redis (phpredis) or \Predis\Client — atomic Lua, uses Redis clock
 new FileStore('/var/run/throttle');     // flock; processes sharing a filesystem/host
-new DatabaseStore($pdo);                // PDO; row-locked transaction (MySQL/Postgres/SQLite)
+new DatabaseStore($pdo);                // PDO; atomic transaction, row lock (FOR UPDATE) on MySQL/Postgres
 ```
 
 - **Redis** — best for multi-host fleets; the reserve runs entirely in a Lua script.
@@ -145,6 +146,10 @@ Define shared limiters once in config; the service provider registers them at bo
     'webhooks'     => ['allow' => 5, 'per' => 'second', 'throw' => true],
 ],
 ```
+
+A rate is `count/period`, where `period` is `second` · `minute` · `hour` · `day` (aliases `s` · `min`
+· `h` · `d`) or a raw number of seconds like `100/60`. There is no `week`/`month` keyword — use raw
+seconds. Keywords are singular (`minute`, not `minutes`); an unknown one throws at boot.
 
 Then reference them by name anywhere — no rate at the call site:
 

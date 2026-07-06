@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Signatures of the Laravel path helpers, so PHPStan can resolve them when
+ * analysing the Laravel bridge without the full framework installed. At runtime
+ * the real framework (or phpstan-bootstrap.php) provides the implementations.
+ */
+function base_path(string $path = ''): string {}
+
+function app_path(string $path = ''): string {}
+
+function config_path(string $path = ''): string {}
+
+function database_path(string $path = ''): string {}
+
+function storage_path(string $path = ''): string {}

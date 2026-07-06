@@ -170,11 +170,12 @@ CallThrottle::for('one-off')->allow(4)->per('second')->run(fn () => ...);
 CallThrottle::store('redis')->for('one-off')->allow(4)->per('second')->run(fn () => ...);
 ```
 
-## Testing
+## Development
 
 ```bash
 composer install
-./vendor/bin/phpunit
+composer test       # PHPUnit
+composer analyse    # PHPStan level 6 (Larastan makes the Laravel bridge type-aware)
 ```
 
 Redis tests are skipped unless `REDIS_URL` is set (e.g. `REDIS_URL=tcp://127.0.0.1:6379`).

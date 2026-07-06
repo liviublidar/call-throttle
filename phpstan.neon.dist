@@ -1,0 +1,19 @@
+# Static analysis. Larastan makes the Laravel bridge (src/Laravel) type-aware.
+# Level 6 is the clean baseline; levels 7+ only surface untyped external
+# boundaries (the duck-typed Redis client, PDO/container `mixed`) that can't be
+# resolved without heavy dev deps or suppressions.
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    level: 6
+    treatPhpDocTypesAsCertain: false
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    stubFiles:
+        - stubs/laravel-helpers.stub
+    paths:
+        - src
+        - tests

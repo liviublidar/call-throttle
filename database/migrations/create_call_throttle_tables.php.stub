@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('call_throttle_limiter_state', function (Blueprint $table) {
+            $table->string('limiter_id', 191)->primary();
+            $table->double('tat');
+            $table->unsignedBigInteger('expires_at')->index();
+        });
+
+        Schema::create('call_throttle_limiters', function (Blueprint $table) {
+            $table->string('limiter_id', 191)->primary();
+            $table->integer('max_calls');
+            $table->double('period_seconds');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('call_throttle_limiters');
+        Schema::dropIfExists('call_throttle_limiter_state');
+    }
+};

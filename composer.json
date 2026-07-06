@@ -1,0 +1,55 @@
+{
+    "name": "0xbliv/call-throttle",
+    "description": "Distributed call rate limiter for PHP: pace API calls or function calls to N per period across processes and queue workers via Redis, file, or database.",
+    "type": "library",
+    "keywords": ["rate-limit", "throttle", "gcra", "redis", "queue", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Liviu Blidar",
+            "email": "liviu.blidar94@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "predis/predis": "^2.0",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0"
+    },
+    "conflict": {
+        "illuminate/support": "<10.0"
+    },
+    "suggest": {
+        "ext-redis": "To use the Redis store with the phpredis extension",
+        "predis/predis": "To use the Redis store with the Predis client",
+        "ext-pdo": "To use the database store",
+        "illuminate/support": "To use the optional Laravel bridge (service provider, config, facade, migration): Laravel 10, 11 or 12"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZeroxBliv\\CallThrottle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZeroxBliv\\CallThrottle\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ZeroxBliv\\CallThrottle\\Laravel\\CallThrottleServiceProvider"
+            ],
+            "aliases": {
+                "CallThrottle": "ZeroxBliv\\CallThrottle\\Laravel\\Facades\\CallThrottle"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

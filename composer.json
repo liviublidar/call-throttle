@@ -14,7 +14,7 @@
         "php": ">=8.2"
     },
     "require-dev": {
-        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0 || ^13.0",
         "larastan/larastan": "^3.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^11.0",
@@ -27,7 +27,7 @@
         "ext-redis": "To use the Redis store with the phpredis extension",
         "predis/predis": "To use the Redis store with the Predis client",
         "ext-pdo": "To use the database store",
-        "illuminate/support": "To use the optional Laravel bridge (service provider, config, facade, migration): Laravel 10, 11 or 12"
+        "illuminate/support": "To use the optional Laravel bridge (service provider, config, facade, migration): Laravel 10, 11, 12 or 13"
     },
     "autoload": {
         "psr-4": {

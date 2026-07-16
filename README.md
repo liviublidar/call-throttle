@@ -122,7 +122,7 @@ new DatabaseStore($pdo);                // PDO; atomic transaction, row lock (FO
 ## Laravel
 
 The Laravel bridge is **optional** — no `illuminate/*` package is a hard dependency, so plain-PHP
-users pull nothing extra. It supports **Laravel 10, 11 and 12** (enforced by a `conflict` rule on
+users pull nothing extra. It supports **Laravel 10, 11, 12 and 13** (enforced by a `conflict` rule on
 `illuminate/support < 10`, so an unsupported version fails at `composer` time rather than at runtime).
 
 The package auto-registers. Publish the config (and, for the database driver, the migration):
